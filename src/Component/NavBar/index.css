@@ -156,6 +156,10 @@
   .nav-links.active {
     display: flex;
   }
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+  }
 
   .nav-links li {
     padding: 14px 0;

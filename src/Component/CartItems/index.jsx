@@ -8,7 +8,14 @@ const CartItems = ({ cartItems, addToCart, removeFromCart }) => {
   );
 
   if (cartItems.length === 0) {
-    return <h2 className="empty-cart">Your cart is empty 🛒</h2>;
+    return (
+      <div className="empty-cart">
+        <h2>Your cart is empty 🛒</h2>
+        <Link to="/products" className="shop-more">
+          Shop More
+        </Link>
+      </div>
+    );
   }
 
   return (
@@ -28,11 +35,6 @@ const CartItems = ({ cartItems, addToCart, removeFromCart }) => {
               <span>{item.quantity}</span>
               <button onClick={() => addToCart(item)}>+</button>
             </div>
-            <div className="showMoreContainer">
-              <Link to="/products" className="shop-more">
-                ShopMore
-              </Link>
-            </div>
           </div>
 
           <p className="item-total">
@@ -41,9 +43,16 @@ const CartItems = ({ cartItems, addToCart, removeFromCart }) => {
         </div>
       ))}
 
-      <h3 className="cart-total">
-        Total: ₹{totalAmount.toLocaleString("en-IN")}
-      </h3>
+      {/* ===== Bottom Section ===== */}
+      <div className="cart-summary">
+        <h3>Total: ₹{totalAmount.toLocaleString("en-IN")}</h3>
+      </div>
+
+      <div className="shop-more-container">
+        <Link to="/products" className="shop-more">
+          Continue Shopping
+        </Link>
+      </div>
     </div>
   );
 };

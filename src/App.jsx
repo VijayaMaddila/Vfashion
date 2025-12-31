@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Navbar from "./Component/NavBar";
 import Home from "./Component/HomePage";
 import Login from "./Component/Login";
@@ -7,10 +8,10 @@ import ProductCard from "./Component/ProductCard";
 import Cart from "./Component/CartItems";
 import ProductDetails from "./Component/ProductDetails";
 import Wishlist from "./Component/wishlist";
-import products from "../data";
 import Contact from "./Component/Contact";
 import ProtectedRoute from "./Component/Protected";
 
+import products from "../data";
 import "./App.css";
 
 const App = () => {
@@ -24,23 +25,24 @@ const App = () => {
   }, [cartItems]);
 
   const addToCart = (product) => {
-    const existingItem = cartItems.find((item) => item.id === product.id);
-    if (existingItem) {
-      setCartItems(
-        cartItems.map((item) =>
+    setCartItems((prev) => {
+      const existing = prev.find((item) => item.id === product.id);
+
+      if (existing) {
+        return prev.map((item) =>
           item.id === product.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
-        )
-      );
-    } else {
-      setCartItems([...cartItems, { ...product, quantity: 1 }]);
-    }
+        );
+      }
+
+      return [...prev, { ...product, quantity: 1 }];
+    });
   };
 
   const removeFromCart = (id) => {
-    setCartItems(
-      cartItems
+    setCartItems((prev) =>
+      prev
         .map((item) =>
           item.id === id ? { ...item, quantity: item.quantity - 1 } : item
         )
@@ -48,8 +50,9 @@ const App = () => {
     );
   };
 
-  const cartCount = cartItems.reduce((t, i) => t + i.quantity, 0);
+  const cartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
 
+  /* ================= WISHLIST ================= */
   const [wishlist, setWishlist] = useState(() => {
     const savedWishlist = localStorage.getItem("wishlist");
     return savedWishlist ? JSON.parse(savedWishlist) : [];
