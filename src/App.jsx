@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { HashRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./Component/NavBar";
 import Home from "./Component/HomePage";
 import Login from "./Component/Login";
@@ -68,7 +68,7 @@ function App() {
   };
 
   return (
-    <HashRouter>
+    <BrowserRouter basename="/Vfashion">
       <Navbar cartCount={cartCount} />
 
       <Routes>
@@ -135,7 +135,7 @@ function App() {
 
         <Route path="/contact" element={<Contact />} />
       </Routes>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 
