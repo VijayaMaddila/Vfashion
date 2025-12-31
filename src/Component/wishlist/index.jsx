@@ -4,7 +4,7 @@ import "./index.css";
 function Wishlist({ wishlist, addToCart, toggleWishlist }) {
   const navigate = useNavigate();
 
-  if (!wishlist || wishlist.length === 0) {
+  if (wishlist.length === 0) {
     return <p className="empty">Your wishlist is empty ❤️</p>;
   }
 

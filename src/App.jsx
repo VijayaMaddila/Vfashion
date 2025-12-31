@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom"; // <-- no BrowserRouter here
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./Component/NavBar";
 import Home from "./Component/HomePage";
 import Login from "./Component/Login";
@@ -13,8 +13,7 @@ import ProtectedRoute from "./Component/Protected";
 
 import "./App.css";
 
-function App() {
-  // --- cart state
+const App = () => {
   const [cartItems, setCartItems] = useState(() => {
     const savedCart = localStorage.getItem("cartItems");
     return savedCart ? JSON.parse(savedCart) : [];
@@ -51,7 +50,6 @@ function App() {
 
   const cartCount = cartItems.reduce((t, i) => t + i.quantity, 0);
 
-  // --- wishlist state
   const [wishlist, setWishlist] = useState(() => {
     const savedWishlist = localStorage.getItem("wishlist");
     return savedWishlist ? JSON.parse(savedWishlist) : [];
@@ -70,7 +68,7 @@ function App() {
   };
 
   return (
-    <>
+    <BrowserRouter>
       <Navbar cartCount={cartCount} />
 
       <Routes>
@@ -137,8 +135,8 @@ function App() {
 
         <Route path="/contact" element={<Contact />} />
       </Routes>
-    </>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
